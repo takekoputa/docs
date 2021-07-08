@@ -51,12 +51,24 @@ xz -dk ubuntu-21.04-preinstalled-server-riscv64+unmatched.img.xz                
 mv ubuntu-21.04-preinstalled-server-riscv64+unmatched.img ubuntu.img                                                # renaming the disk image
 qemu-img resize -f raw ubuntu.img +30G                                                                              # adding 30GB to the disk
 ```
-We'll have to boot the disk image the resize /dev/vda later.
+We'll have to boot the disk image to resize `/dev/vda` later.
 
 ## Booting Ubuntu with QEMU
-
-
-## Getting tools
+Docs: [https://wiki.ubuntu.com/RISC-V]
+### First time booting
+```
+Username: ubuntu
+Password: ubuntu
+```
+#### Stop cloud-init, install tools
+Docs: [https://askubuntu.com/questions/539277/how-to-get-rid-of-cloud-init]
 ```sh
+sudo touch /etc/cloud/cloud-init.disabled # stop cloud-init
+sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get install build-essential gparted
+```
+#### Resize the data partition
+```sh
+resize2fs /dev/vda1
 ```
