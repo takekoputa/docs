@@ -55,6 +55,25 @@ We'll have to boot the disk image to resize `/dev/vda` later.
 
 ## Booting Ubuntu with QEMU
 Docs: [https://wiki.ubuntu.com/RISC-V]
+### Normal booting
+```
+./qemu/build/qemu-system-riscv64 -machine virt -nographic \
+     -m 16384 -smp 8 \
+     -bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_jump.elf \
+     -kernel /usr/lib/u-boot/qemu-riscv64_smode/uboot.elf \
+     -device virtio-net-device,netdev=eth0 \
+     -netdev user,id=eth0,hostfwd=tcp::5555-:22 \
+     -drive file=ubuntu.img,format=raw,if=virtio 
+```
+The above command will forward the port 22 of guest to port 5555 of host.  
+After running the ssh server, one can ssh to the guest by,
+```sh
+ssh ubuntu@localhost -p 5555
+```
+Launching the ssh server,
+```sh
+/etc/init.d/ssh start
+```
 ### First time booting
 ```
 Username: ubuntu
