@@ -64,7 +64,7 @@ cd etc/network
 mkdir if-down.d  if-post-down.d  if-pre-up.d  if-up.d
 ```
 
-## Compiling Linux Kernel (1st time)
+## Compiling Linux Kernel (1st time) to get the cpio of `initdir`
 ```sh
 cd riscv-disk
 git clone --depth 1 --branch v5.10 https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
@@ -73,7 +73,38 @@ cp ../riscv64-sample/kernel.config .config
 make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- menuconfig
 # Go to "General setup"
 #  -> check on "Initial RAM filesystem and RAM disk (initramfs/initrd) support"
-#  -> change "Initramfs source file(s)" to "$HOME/"
+#  -> change "Initramfs source file(s)" to "/abs/path/to/riscv-disk/initdir"
+make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- all -j$(nproc)
+cp usr/initramfs_data.cpio ../
+```
+
+## Merging `initramfs_data.cpio` and `devNodes.cpio`
+```sh
+cd riscv-disk
+cat initramfs_data.cpio devNodes.cpio > init.cpio
+```
+
+## Compiling Linux Kernel (2nd time) to get the desired initramfs cpio
+```sh
+cd riscv-disk
+make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- menuconfig
+# Go to "General setup"
+#  -> check on "Initial RAM filesystem and RAM disk (initramfs/initrd) support"
+#  -> change "Initramfs source file(s)" to "/abs/path/to/riscv-disk/init.cpio"
 make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- all -j$(nproc)
 ```
 
+## Bootloader stuff (bbl)
+```sh
+cd riscv-disk
+git clone https://github.com/riscv/riscv-pk.git
+cd riscv-pk
+mkdir build
+cd build
+../configure --host=riscv64-linux-gnu --with-payload=../../linux/arch/riscv/boot/Image --prefix=$HOME/opt/riscv
+make -j$(nproc)
+riscv64-linux-gnu-strip bbl
+```
+
+## Output
+The desired bootloader is located at `riscv-disk/riscv-pk/build/bbl`.
