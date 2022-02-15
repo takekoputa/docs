@@ -3,3 +3,8 @@
 Finding Critical Chain: `systemd-analyze critical-chain`
 
 https://serverfault.com/questions/784303/how-to-disable-auto-fsck-in-centos-7
+
+```
+sudo systemctl disable networkd-dispatcher.service
+sudo systemctl disable systemd-networkd.service
+```
