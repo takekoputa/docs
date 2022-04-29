@@ -15,3 +15,10 @@
   - Add misc reg names to `src/arch/riscv/isa.cc`.
 
 - Adding bitfields to `src/arch/riscv/isa/bitfields.isa`.
+
+- Adding `src/arch/riscv/isa/formats/vector.isa`: where instruction constructors at.
+
+- Adding `src/arch/riscv/insts/vector.cc` and `src/arch/riscv/insts/vector.hh`: I don't know what they are for yet.
+
+- `src/arch/riscv/insts/SConscript`: add `vector.cc`.
+- `src/arch/riscv/isa/formats/formats.isa`: add `vector.isa`.
