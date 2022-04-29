@@ -20,5 +20,7 @@
 
 - Adding `src/arch/riscv/insts/vector.cc` and `src/arch/riscv/insts/vector.hh`: I don't know what they are for yet.
 
+- Updating `src/arch/riscv/isa/decoder.isa` to decode vector insts.
+
 - `src/arch/riscv/insts/SConscript`: add `vector.cc`.
 - `src/arch/riscv/isa/formats/formats.isa`: add `vector.isa`.
