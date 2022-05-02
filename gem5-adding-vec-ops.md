@@ -24,3 +24,10 @@
 
 - `src/arch/riscv/insts/SConscript`: add `vector.cc`.
 - `src/arch/riscv/isa/formats/formats.isa`: add `vector.isa`.
+
+- Should be fixed stuff,
+  - Fixing VType in decoder
+    - In `src/arch/isa_parser/isa_parser.py`, the function `p_top_level_decode_block` modified decodeInst() signature to add vtype and vl.
+    - Similar things in `src/arch/riscv/decoder.cc` and `src/arch/riscv/decoder.hh`.
+    - In `src/arch/generic/pcstate.hh`, this contains `vl` and `vtype`.
+    - In `src/cpu/simple/base.cc`, `vl` and `vtype` are manually read from MiscReg of the execution thread.
