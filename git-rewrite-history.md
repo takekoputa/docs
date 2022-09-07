@@ -5,7 +5,7 @@ git rebase --root --exec 'git commit --amend --no-edit --reset-author --date="$(
 
 ### Remove the signed-off-by signature
 ```sh
-git rebase --root --exec 'git commit --amend --no-edit --reset-author --date="$(git log -n 1 --format=%aD)" -m "$(git log -n 1 | tail -n +5 | head -n -1)"'
+git rebase --root --exec 'git commit --amend --no-edit --reset-author --date="$(git log -n 1 --format=%aD)" -m "$(git log --format=%B -n 1 | head -n -3 )"'
 ```
 
 ### Sign off the commits again
