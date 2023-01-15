@@ -9,5 +9,5 @@
 
 ```
 # gcc
--mrvv -march=rv64gcv
+-march=rv64gcv
 ```
