@@ -27,3 +27,22 @@ gem5.debug: build/ARM_MESI_Three_Level/mem/ruby/network/Topology.cc:223: void ge
 The ruby network keeps track of all int_links, ext_links, and routers via `ruby_system.network.int_links`, `ruby_system.network.ext_links`, and `ruby_system.network.routers` respectively.
 The above error usually indicates some of the links and routers were not added to the above variables.
 
+### CHI
+
+#### Finding where request/response/data messages are generated
+
+Find,
+
+- `enqueue\([a-zA-Z]*, CHIRequestMsg,`
+- `enqueue\([a-zA-Z]*, CHIResponseMsg,`
+- `enqueue\([a-zA-Z]*, CHIDataMsg,`
+
+#### Structures
+
+- `Mem` and `Cache` have different `TBE` structures, but share the same name in the slicc files.
+
+#### Debug Flags
+
+- `ProtocolTrace`: printing actions and state transitions.
+- `RubyGenerated`: which functions are called per action.
+
