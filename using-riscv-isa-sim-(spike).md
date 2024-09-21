@@ -53,9 +53,18 @@ After this, we can run the simulation instruction-by-instruction via,
 | Functions / Structs | Descriptions |
 |-|-|
 |`sim_t::interactive_reg()`| This function prints integer register content at the end of simulation |
-|`struct state_t` | Contain the architectural state |
-|`struct regfile_t` | Contain a register file; there are separate register files for integer registers, floating point registers, etc. |
+|`struct state_t` | Contains the architectural state |
+|`struct regfile_t` | Contains a register file; there are separate register files for integer registers, floating point registers, etc. |
 
 # Instructions Implementation
 
 Follow this file to keep track of all instructions and header files, [https://github.com/riscv-software-src/riscv-isa-sim/blob/master/riscv/riscv.mk.in](https://github.com/riscv-software-src/riscv-isa-sim/blob/master/riscv/riscv.mk.in).
+
+# Catching which Function is Writing to stdout
+
+[https://stackoverflow.com/a/16778524](https://stackoverflow.com/a/16778524)
+
+# Random Stuff
+
+The register file is printed at the end of the spike simulation.
+This comes from riscv-pk, not spike.
